@@ -5,12 +5,11 @@ use App\Http\Controllers\Admin\Website\HomepageSectionController;
 use App\Http\Controllers\Admin\Website\ImpactCounterController;
 use App\Http\Controllers\Admin\Website\WebsiteController;
 use App\Http\Controllers\Admin\Website\WebsiteSettingController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeController::class)->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
