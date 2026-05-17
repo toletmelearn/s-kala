@@ -1,15 +1,12 @@
 @php
     $menuItems = [
-        ['label' => 'Home', 'href' => url('/#home')],
-        ['label' => 'About', 'href' => url('/#about')],
-        ['label' => 'Vision', 'href' => url('/#vision')],
-        ['label' => 'Training', 'href' => route('training.index')],
-        ['label' => 'Trainers', 'href' => route('training.trainers')],
-        ['label' => 'Events', 'href' => route('events.index')],
-        ['label' => 'Products', 'href' => route('products.index')],
-        ['label' => 'Impact', 'href' => route('impact.index')],
-        ['label' => 'Gallery', 'href' => route('gallery.index')],
-        ['label' => 'Contact', 'href' => route('contact.create')],
+        ['label' => 'Home', 'href' => route('home'), 'active' => 'home'],
+        ['label' => 'Training', 'href' => route('training.index'), 'active' => 'training.*'],
+        ['label' => 'Products', 'href' => route('products.index'), 'active' => 'products.*'],
+        ['label' => 'Gallery', 'href' => route('gallery.index'), 'active' => 'gallery.*'],
+        ['label' => 'Events', 'href' => route('events.index'), 'active' => 'events.*'],
+        ['label' => 'Impact', 'href' => route('impact.index'), 'active' => 'impact.*'],
+        ['label' => 'Contact', 'href' => route('contact.create'), 'active' => 'contact.*'],
     ];
 @endphp
 
@@ -31,7 +28,8 @@
 
         <div class="hidden items-center gap-7 lg:flex">
             @foreach ($menuItems as $item)
-                <a href="{{ $item['href'] }}" class="text-sm font-semibold text-stone-600 transition hover:text-rose-900">
+                @php $isActive = request()->routeIs($item['active']); @endphp
+                <a href="{{ $item['href'] }}" class="text-sm font-semibold transition {{ $isActive ? 'text-rose-900' : 'text-stone-600 hover:text-rose-900' }}">
                     {{ $item['label'] }}
                 </a>
             @endforeach
@@ -62,7 +60,8 @@
     <div x-show="open" x-transition class="border-t border-rose-100 bg-white lg:hidden">
         <div class="mx-auto max-w-7xl space-y-1 px-4 py-4 sm:px-6">
             @foreach ($menuItems as $item)
-                <a href="{{ $item['href'] }}" class="block rounded-xl px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-rose-50" @click="open = false">
+                @php $isActive = request()->routeIs($item['active']); @endphp
+                <a href="{{ $item['href'] }}" class="block rounded-xl px-3 py-2 text-sm font-semibold {{ $isActive ? 'bg-rose-50 text-rose-900' : 'text-stone-700 hover:bg-rose-50' }}" @click="open = false">
                     {{ $item['label'] }}
                 </a>
             @endforeach

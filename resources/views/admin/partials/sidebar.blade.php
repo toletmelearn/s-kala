@@ -1,6 +1,7 @@
 @php
     $navigation = [
         ['label' => 'Dashboard', 'route' => 'admin.dashboard', 'permission' => 'dashboard.view', 'icon' => 'M3 13.5l9-9 9 9M5.25 11.25V21h13.5v-9.75'],
+        ['label' => 'Presentation Mode', 'route' => 'admin.presentation.index', 'active' => 'admin.presentation.*', 'permission' => 'dashboard.view', 'icon' => 'M3.75 5.25h16.5v13.5H3.75V5.25zM8.25 9h7.5M8.25 12h5.25M8.25 15h4.5'],
         ['label' => 'Website CMS', 'route' => 'admin.website.index', 'active' => 'admin.website.*', 'permission' => 'website.manage', 'icon' => 'M4.5 6.75h15M4.5 12h15M4.5 17.25h9'],
         ['label' => 'Training Programs', 'route' => 'admin.training-programs.index', 'active' => 'admin.training-programs.*', 'permission' => 'programs.manage', 'icon' => 'M12 6.75v10.5M6.75 12h10.5M4.5 19.5h15a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5h-15A1.5 1.5 0 003 6v12a1.5 1.5 0 001.5 1.5z'],
         ['label' => 'Trainers', 'route' => 'admin.trainers.index', 'active' => 'admin.trainers.*', 'permission' => 'trainers.manage', 'icon' => 'M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a7.5 7.5 0 0115 0'],
@@ -9,7 +10,8 @@
         ['label' => 'Gallery', 'route' => 'admin.gallery.index', 'active' => 'admin.gallery.*', 'permission' => 'gallery.manage', 'icon' => 'M4.5 5.25h15v13.5h-15V5.25zM7.5 15l3-3 2.25 2.25 1.5-1.5L18 16.5'],
         ['label' => 'Events', 'route' => 'admin.events.index', 'active' => 'admin.events.*', 'permission' => 'events.manage', 'icon' => 'M6.75 3.75v3M17.25 3.75v3M4.5 8.25h15M5.25 6h13.5v13.5H5.25V6z'],
         ['label' => 'Success Stories', 'route' => null, 'permission' => 'success_stories.manage', 'icon' => 'M12 20.25s-7.5-4.5-7.5-10.125A4.125 4.125 0 0112 7.875a4.125 4.125 0 017.5 2.25C19.5 15.75 12 20.25 12 20.25z'],
-        ['label' => 'CSR Reports', 'route' => 'admin.csr-impact.index', 'active' => 'admin.csr-impact.*', 'permission' => 'csr_reports.manage', 'icon' => 'M7.5 3.75h7.5L19.5 8.25v12h-15V3.75h3zM15 3.75v4.5h4.5M8.25 12h7.5M8.25 15h7.5M8.25 18h4.5'],
+        ['label' => 'CSR Reports', 'route' => 'admin.csr-reports.index', 'active' => 'admin.csr-reports.*', 'permission' => 'csr_reports.manage', 'icon' => 'M7.5 3.75h7.5L19.5 8.25v12h-15V3.75h3zM15 3.75v4.5h4.5M8.25 12h7.5M8.25 15h7.5M8.25 18h4.5'],
+        ['label' => 'CSR Impact', 'route' => 'admin.csr-impact.index', 'active' => 'admin.csr-impact.*', 'permission' => 'csr_reports.manage', 'icon' => 'M4.5 19.5h15M7.5 16.5V9m4.5 7.5V6m4.5 10.5v-4.5'],
         ['label' => 'Certificates', 'route' => 'admin.certificates.index', 'active' => 'admin.certificates.*', 'permission' => 'certificates.manage', 'icon' => 'M6 4.5h12v15H6v-15zM9 8.25h6M9 11.25h6M9.75 15.75l2.25-1.5 2.25 1.5'],
         ['label' => 'Enquiries', 'route' => 'admin.enquiries.index', 'active' => 'admin.enquiries.*', 'permission' => 'enquiries.manage', 'icon' => 'M4.5 6.75h15v10.5h-15V6.75zM4.5 7.5L12 13.5l7.5-6'],
         ['label' => 'Settings', 'route' => null, 'permission' => 'settings.manage', 'icon' => 'M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM4.5 12h2.25M17.25 12h2.25M6.72 6.72l1.59 1.59M15.69 15.69l1.59 1.59M12 4.5v2.25M12 17.25v2.25M17.28 6.72l-1.59 1.59M8.31 15.69l-1.59 1.59'],

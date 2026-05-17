@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\GalleryItemController as AdminGalleryItemControll
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductEnquiryController as AdminProductEnquiryController;
+use App\Http\Controllers\Admin\PresentationController as AdminPresentationController;
 use App\Http\Controllers\Admin\TraineeController as AdminTraineeController;
 use App\Http\Controllers\Admin\TrainerController as AdminTrainerController;
 use App\Http\Controllers\Admin\TrainingProgramController as AdminTrainingProgramController;
@@ -62,6 +63,9 @@ Route::middleware('auth')
     ->name('admin.')
     ->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
+        Route::get('/presentation', [AdminPresentationController::class, 'index'])
+            ->middleware('can:dashboard.view')
+            ->name('presentation.index');
 
         Route::middleware('can:programs.manage')->group(function () {
             Route::patch('/training-programs/{training_program}/toggle-status', [AdminTrainingProgramController::class, 'toggleStatus'])

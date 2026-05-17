@@ -1,24 +1,24 @@
 <x-admin-layout :page-title="$pageTitle" :breadcrumb="$breadcrumb">
     @php
         $impactCards = [
-            ['label' => 'Women Trained', 'value' => '240+', 'accent' => 'bg-rose-100 text-rose-900'],
-            ['label' => 'Active Trainees', 'value' => '68', 'accent' => 'bg-amber-100 text-amber-900'],
+            ['label' => 'Women Trained', 'value' => $realStats['women_trained'], 'accent' => 'bg-rose-100 text-rose-900'],
+            ['label' => 'Active Trainees', 'value' => $realStats['active_trainees'], 'accent' => 'bg-amber-100 text-amber-900'],
             ['label' => 'Training Programs', 'value' => '04', 'accent' => 'bg-emerald-100 text-emerald-900'],
-            ['label' => 'Handmade Products', 'value' => '120+', 'accent' => 'bg-pink-100 text-pink-900'],
+            ['label' => 'Handmade Products', 'value' => $realStats['products'], 'accent' => 'bg-pink-100 text-pink-900'],
             ['label' => 'Certificates Issued', 'value' => $certificatesIssuedCount, 'accent' => 'bg-yellow-100 text-yellow-900'],
-            ['label' => 'Enquiries', 'value' => '31', 'accent' => 'bg-stone-200 text-stone-900'],
+            ['label' => 'Enquiries', 'value' => $realStats['enquiries'], 'accent' => 'bg-stone-200 text-stone-900'],
         ];
 
         $quickActions = [
-            ['label' => 'Manage Website', 'permission' => 'website.manage'],
-            ['label' => 'Training Programs', 'permission' => 'programs.manage'],
-            ['label' => 'Trainers', 'permission' => 'trainers.manage'],
-            ['label' => 'Trainees', 'permission' => 'trainees.manage'],
-            ['label' => 'Product Showcase', 'permission' => 'products.manage'],
-            ['label' => 'Gallery', 'permission' => 'gallery.manage'],
-            ['label' => 'CSR Reports', 'permission' => 'csr_reports.manage'],
-            ['label' => 'Certificates', 'permission' => 'certificates.manage'],
-            ['label' => 'Enquiries', 'permission' => 'enquiries.manage'],
+            ['label' => 'Manage Website', 'permission' => 'website.manage', 'route' => 'admin.website.index'],
+            ['label' => 'Training Programs', 'permission' => 'programs.manage', 'route' => 'admin.training-programs.index'],
+            ['label' => 'Trainers', 'permission' => 'trainers.manage', 'route' => 'admin.trainers.index'],
+            ['label' => 'Trainees', 'permission' => 'trainees.manage', 'route' => 'admin.trainees.index'],
+            ['label' => 'Product Showcase', 'permission' => 'products.manage', 'route' => 'admin.products.index'],
+            ['label' => 'Gallery', 'permission' => 'gallery.manage', 'route' => 'admin.gallery.index'],
+            ['label' => 'CSR Reports', 'permission' => 'csr_reports.manage', 'route' => 'admin.csr-impact.index'],
+            ['label' => 'Certificates', 'permission' => 'certificates.manage', 'route' => 'admin.certificates.index'],
+            ['label' => 'Enquiries', 'permission' => 'enquiries.manage', 'route' => 'admin.enquiries.index'],
         ];
 
         $directorItems = [
@@ -43,6 +43,11 @@
                             You are signed in as <span class="font-semibold text-rose-900">{{ $roleName }}</span>.
                             This workspace keeps S-kala's training, documentation, and impact story ready for leadership review.
                         </p>
+                        @can('dashboard.view')
+                            <a href="{{ route('admin.presentation.index') }}" class="mt-5 inline-flex rounded-full bg-stone-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-800">
+                                Open Director Presentation Mode
+                            </a>
+                        @endcan
                     </div>
 
                     <div class="rounded-2xl bg-[#fbf7f0] p-5">
@@ -102,7 +107,7 @@
                 <div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                     @foreach ($quickActions as $action)
                         @can($action['permission'])
-                            <a href="#"
+                            <a href="{{ route($action['route']) }}"
                                 class="group rounded-2xl border border-rose-100 bg-[#fffdf9] p-4 transition hover:-translate-y-0.5 hover:border-rose-200 hover:bg-rose-50">
                                 <div class="flex items-center justify-between gap-3">
                                     <span class="text-sm font-semibold text-stone-800 group-hover:text-rose-950">{{ $action['label'] }}</span>

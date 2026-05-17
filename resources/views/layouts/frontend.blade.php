@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="{{ $metaDescription ?? 'S-kala - Shakuntala Shishu Lok: Skill, Strength & Self-Reliance. Women empowerment through training, product visibility, certification, and community support.' }}">
 
         <title>{{ ($title ?? ($settings?->site_name ?? 'S-kala')) . ' | ' . ($settings?->tagline ?? 'Skill, Strength & Self-Reliance') }}</title>
 
