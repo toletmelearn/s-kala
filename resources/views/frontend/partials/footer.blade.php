@@ -14,12 +14,16 @@
                 <p>{{ $settings?->address ?? 'Dhampur, Uttar Pradesh' }}</p>
                 <p>{{ $settings?->phone ?? '+91 00000 00000' }}</p>
                 <p>{{ $settings?->email ?? 'info@skala.test' }}</p>
+                <a href="{{ route('contact.create') }}" class="inline-flex rounded-full border border-white/10 px-4 py-2 text-xs font-semibold text-stone-200 hover:bg-white/10">
+                    Contact Form
+                </a>
             </div>
         </div>
 
         <div>
             <p class="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">Connect</p>
             <div class="mt-4 flex flex-wrap gap-3">
+                <a href="{{ route('certificates.verify', 'SKALA-VERIFY-XXXXXXXX') }}" class="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 hover:bg-white/10">Certificate Verification</a>
                 @if ($settings?->facebook_url)
                     <a href="{{ $settings->facebook_url }}" class="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 hover:bg-white/10">Facebook</a>
                 @endif

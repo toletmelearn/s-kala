@@ -9,7 +9,7 @@
         ['label' => 'Products', 'href' => route('products.index')],
         ['label' => 'Impact', 'href' => url('/#impact')],
         ['label' => 'Gallery', 'href' => route('gallery.index')],
-        ['label' => 'Contact', 'href' => url('/#contact')],
+        ['label' => 'Contact', 'href' => route('contact.create')],
     ];
 @endphp
 

@@ -5,7 +5,7 @@
             ['label' => 'Active Trainees', 'value' => '68', 'accent' => 'bg-amber-100 text-amber-900'],
             ['label' => 'Training Programs', 'value' => '04', 'accent' => 'bg-emerald-100 text-emerald-900'],
             ['label' => 'Handmade Products', 'value' => '120+', 'accent' => 'bg-pink-100 text-pink-900'],
-            ['label' => 'Certificates Issued', 'value' => '92', 'accent' => 'bg-yellow-100 text-yellow-900'],
+            ['label' => 'Certificates Issued', 'value' => $certificatesIssuedCount, 'accent' => 'bg-yellow-100 text-yellow-900'],
             ['label' => 'Enquiries', 'value' => '31', 'accent' => 'bg-stone-200 text-stone-900'],
         ];
 

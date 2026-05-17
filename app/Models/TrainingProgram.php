@@ -42,4 +42,9 @@ class TrainingProgram extends Model
     {
         return $this->hasMany(Trainee::class, 'preferred_program_id');
     }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(Certificate::class);
+    }
 }

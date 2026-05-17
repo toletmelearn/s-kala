@@ -95,7 +95,7 @@ class TraineeController extends Controller
         return view('admin.trainees.show', [
             'pageTitle' => 'Trainee Details',
             'breadcrumb' => 'Trainees / Details',
-            'trainee' => $trainee->load('preferredProgram'),
+            'trainee' => $trainee->load(['preferredProgram', 'certificates.trainingProgram']),
         ]);
     }
 

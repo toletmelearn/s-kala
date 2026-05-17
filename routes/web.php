@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\ContactEnquiryController as AdminContactEnquiryController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\GalleryCategoryController as AdminGalleryCategoryController;
 use App\Http\Controllers\Admin\GalleryItemController as AdminGalleryItemController;
@@ -15,8 +17,10 @@ use App\Http\Controllers\Admin\Website\ImpactCounterController;
 use App\Http\Controllers\Admin\Website\WebsiteController;
 use App\Http\Controllers\Admin\Website\WebsiteSettingController;
 use App\Http\Controllers\Frontend\GalleryEventController;
+use App\Http\Controllers\Frontend\CertificateVerificationController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JoinController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\TrainingController;
 use App\Http\Controllers\ProfileController;
@@ -34,6 +38,9 @@ Route::get('/events/{slug}', [GalleryEventController::class, 'eventDetail'])->na
 Route::get('/products', [FrontendProductController::class, 'index'])->name('products.index');
 Route::get('/products/{slug}', [FrontendProductController::class, 'show'])->name('products.show');
 Route::post('/products/{slug}/enquiry', [FrontendProductController::class, 'enquiry'])->name('products.enquiry');
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/verify-certificate/{verification_code}', [CertificateVerificationController::class, 'show'])->name('certificates.verify');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -111,6 +118,18 @@ Route::middleware('auth')
             Route::resource('product-enquiries', AdminProductEnquiryController::class)
                 ->only(['index', 'show', 'update', 'destroy'])
                 ->parameters(['product-enquiries' => 'product_enquiry']);
+        });
+
+        Route::middleware('can:enquiries.manage')->group(function () {
+            Route::resource('enquiries', AdminContactEnquiryController::class)
+                ->only(['index', 'show', 'update', 'destroy']);
+        });
+
+        Route::middleware('can:certificates.manage')->group(function () {
+            Route::patch('/certificates/{certificate}/issue', [AdminCertificateController::class, 'issue'])->name('certificates.issue');
+            Route::patch('/certificates/{certificate}/revoke', [AdminCertificateController::class, 'revoke'])->name('certificates.revoke');
+            Route::get('/certificates/{certificate}/download', [AdminCertificateController::class, 'download'])->name('certificates.download');
+            Route::resource('certificates', AdminCertificateController::class);
         });
 
         Route::middleware('can:website.manage')

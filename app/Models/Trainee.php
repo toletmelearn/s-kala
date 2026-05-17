@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class Trainee extends Model
@@ -56,6 +57,11 @@ class Trainee extends Model
     public function preferredProgram(): BelongsTo
     {
         return $this->belongsTo(TrainingProgram::class, 'preferred_program_id');
+    }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(Certificate::class);
     }
 
     private static function generateRegistrationNumber(): string

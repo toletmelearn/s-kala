@@ -393,7 +393,7 @@
                 <a href="{{ route('join.create') }}" class="inline-flex items-center justify-center rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
                     Join Training
                 </a>
-                <a href="{{ url('/#contact') }}" class="inline-flex items-center justify-center rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-semibold text-rose-900 shadow-sm transition hover:bg-rose-50">
+                <a href="{{ route('contact.create') }}" class="inline-flex items-center justify-center rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-semibold text-rose-900 shadow-sm transition hover:bg-rose-50">
                     Contact S-kala
                 </a>
             </div>
