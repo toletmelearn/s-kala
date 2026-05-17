@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\TraineeController as AdminTraineeController;
 use App\Http\Controllers\Admin\TrainerController as AdminTrainerController;
 use App\Http\Controllers\Admin\TrainingProgramController as AdminTrainingProgramController;
 use App\Http\Controllers\Admin\Website\HomepageSectionController;
@@ -8,11 +9,15 @@ use App\Http\Controllers\Admin\Website\ImpactCounterController;
 use App\Http\Controllers\Admin\Website\WebsiteController;
 use App\Http\Controllers\Admin\Website\WebsiteSettingController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\JoinController;
 use App\Http\Controllers\Frontend\TrainingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/join', [JoinController::class, 'create'])->name('join.create');
+Route::post('/join', [JoinController::class, 'store'])->name('join.store');
+Route::get('/join/thank-you', [JoinController::class, 'thankYou'])->name('join.thank-you');
 Route::get('/training', [TrainingController::class, 'programs'])->name('training.index');
 Route::get('/trainers', [TrainingController::class, 'trainers'])->name('training.trainers');
 
@@ -46,6 +51,10 @@ Route::middleware('auth')
             Route::patch('/trainers/{trainer}/toggle-status', [AdminTrainerController::class, 'toggleStatus'])
                 ->name('trainers.toggle-status');
             Route::resource('trainers', AdminTrainerController::class)->except(['show']);
+        });
+
+        Route::middleware('can:trainees.manage')->group(function () {
+            Route::resource('trainees', AdminTraineeController::class);
         });
 
         Route::middleware('can:website.manage')

@@ -64,6 +64,10 @@
                                     @endforelse
                                 </div>
                             </div>
+
+                            <a href="{{ route('join.create', ['program' => $program->slug]) }}" class="mt-6 inline-flex rounded-full bg-rose-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 hover:bg-rose-800">
+                                Apply for this Program
+                            </a>
                         </div>
                     </article>
                 @empty
@@ -83,7 +87,7 @@
         <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
             <p class="text-sm font-semibold uppercase tracking-[0.18em] text-rose-700">Join S-kala</p>
             <h2 class="mt-3 text-3xl font-bold text-stone-950">Begin a journey where skills become confidence and confidence becomes livelihood.</h2>
-            <a href="{{ url('/#contact') }}" class="mt-8 inline-flex rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 hover:bg-rose-800">
+            <a href="{{ route('join.create') }}" class="mt-8 inline-flex rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 hover:bg-rose-800">
                 Join S-kala
             </a>
         </div>

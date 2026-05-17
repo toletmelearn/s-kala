@@ -42,7 +42,7 @@
                     Admin
                 </a>
             @endauth
-            <a href="{{ url('/#contact') }}" class="rounded-full bg-rose-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
+            <a href="{{ route('join.create') }}" class="rounded-full bg-rose-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
                 Join S-kala
             </a>
         </div>
@@ -65,7 +65,7 @@
                     {{ $item['label'] }}
                 </a>
             @endforeach
-            <a href="{{ url('/#contact') }}" class="mt-3 block rounded-xl bg-rose-900 px-4 py-3 text-center text-sm font-semibold text-white" @click="open = false">
+            <a href="{{ route('join.create') }}" class="mt-3 block rounded-xl bg-rose-900 px-4 py-3 text-center text-sm font-semibold text-white" @click="open = false">
                 Join S-kala
             </a>
         </div>

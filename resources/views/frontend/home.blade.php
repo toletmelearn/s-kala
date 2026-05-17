@@ -47,7 +47,7 @@
                 </p>
 
                 <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
+                    <a href="{{ route('join.create') }}" class="inline-flex items-center justify-center rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
                         Join as Trainee
                     </a>
                     <a href="{{ $heroButtonUrl }}" class="inline-flex items-center justify-center rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-semibold text-rose-900 shadow-sm transition hover:bg-rose-50">
@@ -272,10 +272,10 @@
                 Be a part of a platform where skills become confidence and confidence becomes livelihood.
             </h2>
             <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
+                <a href="{{ route('join.create') }}" class="inline-flex items-center justify-center rounded-full bg-rose-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 transition hover:bg-rose-800">
                     Join Training
                 </a>
-                <a href="#contact" class="inline-flex items-center justify-center rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-semibold text-rose-900 shadow-sm transition hover:bg-rose-50">
+                <a href="{{ url('/#contact') }}" class="inline-flex items-center justify-center rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-semibold text-rose-900 shadow-sm transition hover:bg-rose-50">
                     Contact S-kala
                 </a>
             </div>
