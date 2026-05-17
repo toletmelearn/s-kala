@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\CsrImpactController as AdminCsrImpactController;
+use App\Http\Controllers\Admin\CsrReportController as AdminCsrReportController;
 use App\Http\Controllers\Admin\ContactEnquiryController as AdminContactEnquiryController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\GalleryCategoryController as AdminGalleryCategoryController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\Admin\Website\WebsiteController;
 use App\Http\Controllers\Admin\Website\WebsiteSettingController;
 use App\Http\Controllers\Frontend\GalleryEventController;
 use App\Http\Controllers\Frontend\CertificateVerificationController;
+use App\Http\Controllers\Frontend\ImpactController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JoinController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -41,6 +44,8 @@ Route::post('/products/{slug}/enquiry', [FrontendProductController::class, 'enqu
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/verify-certificate/{verification_code}', [CertificateVerificationController::class, 'show'])->name('certificates.verify');
+Route::get('/impact', [ImpactController::class, 'index'])->name('impact.index');
+Route::get('/csr-reports/{slug}', [ImpactController::class, 'show'])->name('impact.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -130,6 +135,15 @@ Route::middleware('auth')
             Route::patch('/certificates/{certificate}/revoke', [AdminCertificateController::class, 'revoke'])->name('certificates.revoke');
             Route::get('/certificates/{certificate}/download', [AdminCertificateController::class, 'download'])->name('certificates.download');
             Route::resource('certificates', AdminCertificateController::class);
+        });
+
+        Route::middleware('can:csr_reports.manage')->group(function () {
+            Route::get('/csr-impact', [AdminCsrImpactController::class, 'index'])->name('csr-impact.index');
+            Route::patch('/csr-reports/{csr_report}/toggle-featured', [AdminCsrReportController::class, 'toggleFeatured'])->name('csr-reports.toggle-featured');
+            Route::patch('/csr-reports/{csr_report}/toggle-published', [AdminCsrReportController::class, 'togglePublished'])->name('csr-reports.toggle-published');
+            Route::resource('csr-reports', AdminCsrReportController::class)
+                ->except(['show'])
+                ->parameters(['csr-reports' => 'csr_report']);
         });
 
         Route::middleware('can:website.manage')

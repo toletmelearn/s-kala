@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             TrainingModuleSeeder::class,
             GalleryEventsSeeder::class,
             ProductShowcaseSeeder::class,
+            CsrReportSeeder::class,
         ]);
     }
 }

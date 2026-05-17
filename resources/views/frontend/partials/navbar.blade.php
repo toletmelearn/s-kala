@@ -7,7 +7,7 @@
         ['label' => 'Trainers', 'href' => route('training.trainers')],
         ['label' => 'Events', 'href' => route('events.index')],
         ['label' => 'Products', 'href' => route('products.index')],
-        ['label' => 'Impact', 'href' => url('/#impact')],
+        ['label' => 'Impact', 'href' => route('impact.index')],
         ['label' => 'Gallery', 'href' => route('gallery.index')],
         ['label' => 'Contact', 'href' => route('contact.create')],
     ];
