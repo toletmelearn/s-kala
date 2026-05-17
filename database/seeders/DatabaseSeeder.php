@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             WebsiteCmsSeeder::class,
             TrainingModuleSeeder::class,
             GalleryEventsSeeder::class,
+            ProductShowcaseSeeder::class,
         ]);
     }
 }

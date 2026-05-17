@@ -213,6 +213,55 @@
         </div>
     </section>
 
+    <section id="products" class="bg-white py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-rose-700">Made at S-kala</p>
+                    <h2 class="mt-2 text-3xl font-bold text-stone-950">Handmade products created through skill, confidence, and care.</h2>
+                </div>
+                <a href="{{ route('products.index') }}" class="inline-flex rounded-full border border-rose-200 bg-white px-5 py-2.5 text-sm font-semibold text-rose-900 hover:bg-rose-50">
+                    Explore Products
+                </a>
+            </div>
+
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                @forelse ($featuredProducts as $product)
+                    @php
+                        $productImageExists = $product->image && file_exists(public_path($product->image));
+                    @endphp
+                    <article class="overflow-hidden rounded-3xl border border-rose-100 bg-[#fffdf9] shadow-xl shadow-rose-100/40">
+                        @if ($productImageExists)
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="h-52 w-full object-cover">
+                        @else
+                            <div class="flex h-52 items-center justify-center bg-rose-50 p-6 text-center text-sm font-semibold text-rose-900">Product image coming soon</div>
+                        @endif
+                        <div class="p-5">
+                            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">{{ $product->category?->name ?: 'S-kala Product' }}</p>
+                            <h3 class="mt-2 text-lg font-bold text-stone-950">{{ $product->name }}</h3>
+                            <p class="mt-2 text-sm text-stone-600">{{ $product->short_description ?: Str::limit($product->description, 90) }}</p>
+                            <a href="{{ route('products.show', $product->slug) }}" class="mt-4 inline-flex rounded-full bg-rose-900 px-4 py-2 text-xs font-semibold text-white hover:bg-rose-800">
+                                View Details
+                            </a>
+                        </div>
+                    </article>
+                @empty
+                    @foreach ([
+                        ['name' => 'Embroidered Bag', 'text' => 'A practical handcrafted bag developed through embroidery skill sessions.'],
+                        ['name' => 'Handmade Craft Item', 'text' => 'Creative utility craft reflecting design confidence and precision.'],
+                        ['name' => 'Stitched Garment', 'text' => 'A tailored garment example from foundational stitching practice.'],
+                    ] as $fallbackProduct)
+                        <article class="rounded-3xl border border-rose-100 bg-[#fffdf9] p-6 shadow-xl shadow-rose-100/40">
+                            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">S-kala Product</p>
+                            <h3 class="mt-2 text-lg font-bold text-stone-950">{{ $fallbackProduct['name'] }}</h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-600">{{ $fallbackProduct['text'] }}</p>
+                        </article>
+                    @endforeach
+                @endforelse
+            </div>
+        </div>
+    </section>
+
     <section id="gallery" class="bg-white py-16">
         <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
             <div class="rounded-[2rem] bg-stone-950 p-8 text-white shadow-xl shadow-stone-300/40">

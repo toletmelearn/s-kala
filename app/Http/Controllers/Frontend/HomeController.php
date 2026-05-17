@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\GalleryItem;
 use App\Models\HomepageSection;
 use App\Models\ImpactCounter;
+use App\Models\Product;
 use App\Models\TrainingProgram;
 use App\Models\WebsiteSetting;
 use Illuminate\Contracts\View\View;
@@ -32,6 +33,7 @@ class HomeController extends Controller
             'featuredPrograms' => $this->featuredPrograms(),
             'featuredGalleryItems' => $this->featuredGalleryItems(),
             'featuredEvents' => $this->featuredEvents(),
+            'featuredProducts' => $this->featuredProducts(),
         ]);
     }
 
@@ -111,6 +113,21 @@ class HomeController extends Controller
             ->orderByDesc('event_date')
             ->orderBy('sort_order')
             ->limit(3)
+            ->get();
+    }
+
+    private function featuredProducts(): Collection
+    {
+        if (! Schema::hasTable('products')) {
+            return collect();
+        }
+
+        return Product::query()
+            ->with('category')
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->orderBy('sort_order')
+            ->limit(4)
             ->get();
     }
 }

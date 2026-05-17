@@ -4,6 +4,9 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\GalleryCategoryController as AdminGalleryCategoryController;
 use App\Http\Controllers\Admin\GalleryItemController as AdminGalleryItemController;
+use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\ProductEnquiryController as AdminProductEnquiryController;
 use App\Http\Controllers\Admin\TraineeController as AdminTraineeController;
 use App\Http\Controllers\Admin\TrainerController as AdminTrainerController;
 use App\Http\Controllers\Admin\TrainingProgramController as AdminTrainingProgramController;
@@ -14,6 +17,7 @@ use App\Http\Controllers\Admin\Website\WebsiteSettingController;
 use App\Http\Controllers\Frontend\GalleryEventController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JoinController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\TrainingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +31,9 @@ Route::get('/trainers', [TrainingController::class, 'trainers'])->name('training
 Route::get('/gallery', [GalleryEventController::class, 'gallery'])->name('gallery.index');
 Route::get('/events', [GalleryEventController::class, 'events'])->name('events.index');
 Route::get('/events/{slug}', [GalleryEventController::class, 'eventDetail'])->name('events.show');
+Route::get('/products', [FrontendProductController::class, 'index'])->name('products.index');
+Route::get('/products/{slug}', [FrontendProductController::class, 'show'])->name('products.show');
+Route::post('/products/{slug}/enquiry', [FrontendProductController::class, 'enquiry'])->name('products.enquiry');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -86,6 +93,24 @@ Route::middleware('auth')
             Route::patch('/events/{event}/toggle-featured', [AdminEventController::class, 'toggleFeatured'])
                 ->name('events.toggle-featured');
             Route::resource('events', AdminEventController::class)->except(['show']);
+        });
+
+        Route::middleware('can:products.manage')->group(function () {
+            Route::patch('/product-categories/{product_category}/toggle-status', [AdminProductCategoryController::class, 'toggleStatus'])
+                ->name('product-categories.toggle-status');
+            Route::resource('product-categories', AdminProductCategoryController::class)
+                ->except(['show'])
+                ->parameters(['product-categories' => 'product_category']);
+
+            Route::patch('/products/{product}/toggle-status', [AdminProductController::class, 'toggleStatus'])
+                ->name('products.toggle-status');
+            Route::patch('/products/{product}/toggle-featured', [AdminProductController::class, 'toggleFeatured'])
+                ->name('products.toggle-featured');
+            Route::resource('products', AdminProductController::class)->except(['show']);
+
+            Route::resource('product-enquiries', AdminProductEnquiryController::class)
+                ->only(['index', 'show', 'update', 'destroy'])
+                ->parameters(['product-enquiries' => 'product_enquiry']);
         });
 
         Route::middleware('can:website.manage')
