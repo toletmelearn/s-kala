@@ -2,8 +2,8 @@
     $navigation = [
         ['label' => 'Dashboard', 'route' => 'admin.dashboard', 'permission' => 'dashboard.view', 'icon' => 'M3 13.5l9-9 9 9M5.25 11.25V21h13.5v-9.75'],
         ['label' => 'Website CMS', 'route' => 'admin.website.index', 'active' => 'admin.website.*', 'permission' => 'website.manage', 'icon' => 'M4.5 6.75h15M4.5 12h15M4.5 17.25h9'],
-        ['label' => 'Training Programs', 'route' => null, 'permission' => 'programs.manage', 'icon' => 'M12 6.75v10.5M6.75 12h10.5M4.5 19.5h15a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5h-15A1.5 1.5 0 003 6v12a1.5 1.5 0 001.5 1.5z'],
-        ['label' => 'Trainers', 'route' => null, 'permission' => 'trainers.manage', 'icon' => 'M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a7.5 7.5 0 0115 0'],
+        ['label' => 'Training Programs', 'route' => 'admin.training-programs.index', 'active' => 'admin.training-programs.*', 'permission' => 'programs.manage', 'icon' => 'M12 6.75v10.5M6.75 12h10.5M4.5 19.5h15a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5h-15A1.5 1.5 0 003 6v12a1.5 1.5 0 001.5 1.5z'],
+        ['label' => 'Trainers', 'route' => 'admin.trainers.index', 'active' => 'admin.trainers.*', 'permission' => 'trainers.manage', 'icon' => 'M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a7.5 7.5 0 0115 0'],
         ['label' => 'Trainees', 'route' => null, 'permission' => 'trainees.manage', 'icon' => 'M8.25 8.25a3 3 0 116 0 3 3 0 01-6 0zM3.75 20.25a8.25 8.25 0 0116.5 0'],
         ['label' => 'Products', 'route' => null, 'permission' => 'products.manage', 'icon' => 'M6 7.5h12l-1.5 12h-9L6 7.5zM8.25 7.5a3.75 3.75 0 017.5 0'],
         ['label' => 'Gallery', 'route' => null, 'permission' => 'gallery.manage', 'icon' => 'M4.5 5.25h15v13.5h-15V5.25zM7.5 15l3-3 2.25 2.25 1.5-1.5L18 16.5'],

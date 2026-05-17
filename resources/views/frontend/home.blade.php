@@ -12,7 +12,7 @@
         $transformationImageExists = $transformation?->image && file_exists(public_path($transformation->image));
         $heroButtonText = $hero?->button_text ?: 'Explore Our Vision';
         $heroButtonUrl = $hero?->button_url ?: '#vision';
-        $trainingPrograms = [
+        $fallbackTrainingPrograms = [
             ['title' => 'Tailoring', 'text' => 'Practical stitching skills for confidence, utility, and livelihood readiness.'],
             ['title' => 'Embroidery', 'text' => 'Fine handwork that strengthens craft quality and product value.'],
             ['title' => 'Craft', 'text' => 'Creative handmade skills for useful, presentable community products.'],
@@ -188,16 +188,28 @@
                 <h2 class="mt-3 text-3xl font-bold text-stone-950">Practical skills for confidence and livelihood readiness.</h2>
             </div>
             <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                @foreach ($trainingPrograms as $program)
-                    <article class="rounded-3xl border border-rose-100 bg-white p-6 shadow-xl shadow-rose-100/40">
-                        <h3 class="text-lg font-bold text-stone-950">{{ $program['title'] }}</h3>
-                        <p class="mt-3 text-sm leading-6 text-stone-600">{{ $program['text'] }}</p>
-                    </article>
-                @endforeach
+                @forelse ($featuredPrograms as $program)
+                    <a href="{{ route('training.index') }}" class="rounded-3xl border border-rose-100 bg-white p-6 shadow-xl shadow-rose-100/40 transition hover:-translate-y-0.5 hover:border-rose-200">
+                        <h3 class="text-lg font-bold text-stone-950">{{ $program->name }}</h3>
+                        <p class="mt-3 text-sm leading-6 text-stone-600">{{ $program->short_description ?: Str::limit($program->description, 120) }}</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            @foreach ($program->trainers as $trainer)
+                                <span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-900">{{ $trainer->name }}</span>
+                            @endforeach
+                        </div>
+                    </a>
+                @empty
+                    @foreach ($fallbackTrainingPrograms as $program)
+                        <article class="rounded-3xl border border-rose-100 bg-white p-6 shadow-xl shadow-rose-100/40">
+                            <h3 class="text-lg font-bold text-stone-950">{{ $program['title'] }}</h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-600">{{ $program['text'] }}</p>
+                        </article>
+                    @endforeach
+                @endforelse
             </div>
-            <p class="mt-6 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4 text-sm font-semibold text-amber-900">
-                Detailed training module will be managed from the admin panel in the next phase.
-            </p>
+            <a href="{{ route('training.index') }}" class="mt-6 inline-flex rounded-full bg-rose-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-rose-900/20 hover:bg-rose-800">
+                View Training Programs
+            </a>
         </div>
     </section>
 

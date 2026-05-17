@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\HomepageSection;
 use App\Models\ImpactCounter;
+use App\Models\TrainingProgram;
 use App\Models\WebsiteSetting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -26,6 +27,7 @@ class HomeController extends Controller
             'leadership' => $sections->get('leadership'),
             'transformation' => $sections->get('transformation'),
             'impactCounters' => $this->impactCounters(),
+            'featuredPrograms' => $this->featuredPrograms(),
         ]);
     }
 
@@ -60,6 +62,21 @@ class HomeController extends Controller
         return ImpactCounter::query()
             ->where('is_active', true)
             ->orderBy('sort_order')
+            ->get();
+    }
+
+    private function featuredPrograms(): Collection
+    {
+        if (! Schema::hasTable('training_programs')) {
+            return collect();
+        }
+
+        return TrainingProgram::query()
+            ->with(['trainers' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')])
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->orderBy('sort_order')
+            ->limit(4)
             ->get();
     }
 }
