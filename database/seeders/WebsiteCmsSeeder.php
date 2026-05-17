@@ -17,12 +17,12 @@ class WebsiteCmsSeeder extends Seeder
         WebsiteSetting::query()->updateOrCreate(
             ['id' => 1],
             [
-                'site_name' => 'S-kala – Shakuntala Shishu Lok',
+                'site_name' => 'S-kala - Shakuntala Shishu Lok',
                 'tagline' => 'Skill, Strength & Self-Reliance',
-                'email' => 'info@skala.test',
-                'phone' => '+91 00000 00000',
+                'email' => null,
+                'phone' => null,
                 'address' => 'Dhampur, Uttar Pradesh',
-                'footer_text' => 'S-kala – Shakuntala Shishu Lok | Skill, Strength & Self-Reliance',
+                'footer_text' => 'S-kala - Shakuntala Shishu Lok | Skill, Strength & Self-Reliance',
             ],
         );
 

@@ -91,9 +91,9 @@
                 <article class="rounded-[2rem] border border-rose-100 bg-white p-6 shadow-xl shadow-rose-100/40">
                     <p class="text-sm font-semibold uppercase tracking-[0.18em] text-rose-700">Contact Information</p>
                     <div class="mt-4 space-y-3 text-sm text-stone-700">
-                        <p><span class="font-semibold text-stone-900">Phone:</span> {{ $settings?->phone ?? '+91 00000 00000' }}</p>
-                        <p><span class="font-semibold text-stone-900">Email:</span> {{ $settings?->email ?? 'info@skala.test' }}</p>
-                        <p><span class="font-semibold text-stone-900">Address:</span> {{ $settings?->address ?? 'Dhampur, Uttar Pradesh' }}</p>
+                        <p><span class="font-semibold text-stone-900">Phone:</span> {{ $settings?->phone ?: 'Will be updated from admin settings' }}</p>
+                        <p><span class="font-semibold text-stone-900">Email:</span> {{ $settings?->email ?: 'Will be updated from admin settings' }}</p>
+                        <p><span class="font-semibold text-stone-900">Address:</span> {{ $settings?->address ?: 'Will be updated from admin settings' }}</p>
                     </div>
                     <div class="mt-5 flex flex-wrap gap-2">
                         @if ($settings?->facebook_url)
