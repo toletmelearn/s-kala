@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\GalleryItem;
 use App\Models\HomepageSection;
 use App\Models\ImpactCounter;
 use App\Models\TrainingProgram;
@@ -28,6 +30,8 @@ class HomeController extends Controller
             'transformation' => $sections->get('transformation'),
             'impactCounters' => $this->impactCounters(),
             'featuredPrograms' => $this->featuredPrograms(),
+            'featuredGalleryItems' => $this->featuredGalleryItems(),
+            'featuredEvents' => $this->featuredEvents(),
         ]);
     }
 
@@ -77,6 +81,36 @@ class HomeController extends Controller
             ->where('is_featured', true)
             ->orderBy('sort_order')
             ->limit(4)
+            ->get();
+    }
+
+    private function featuredGalleryItems(): Collection
+    {
+        if (! Schema::hasTable('gallery_items')) {
+            return collect();
+        }
+
+        return GalleryItem::query()
+            ->with('category')
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->orderBy('sort_order')
+            ->limit(6)
+            ->get();
+    }
+
+    private function featuredEvents(): Collection
+    {
+        if (! Schema::hasTable('events')) {
+            return collect();
+        }
+
+        return Event::query()
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->orderByDesc('event_date')
+            ->orderBy('sort_order')
+            ->limit(3)
             ->get();
     }
 }

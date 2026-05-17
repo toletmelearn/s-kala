@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\GalleryCategoryController as AdminGalleryCategoryController;
+use App\Http\Controllers\Admin\GalleryItemController as AdminGalleryItemController;
 use App\Http\Controllers\Admin\TraineeController as AdminTraineeController;
 use App\Http\Controllers\Admin\TrainerController as AdminTrainerController;
 use App\Http\Controllers\Admin\TrainingProgramController as AdminTrainingProgramController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\Admin\Website\HomepageSectionController;
 use App\Http\Controllers\Admin\Website\ImpactCounterController;
 use App\Http\Controllers\Admin\Website\WebsiteController;
 use App\Http\Controllers\Admin\Website\WebsiteSettingController;
+use App\Http\Controllers\Frontend\GalleryEventController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JoinController;
 use App\Http\Controllers\Frontend\TrainingController;
@@ -20,6 +24,9 @@ Route::post('/join', [JoinController::class, 'store'])->name('join.store');
 Route::get('/join/thank-you', [JoinController::class, 'thankYou'])->name('join.thank-you');
 Route::get('/training', [TrainingController::class, 'programs'])->name('training.index');
 Route::get('/trainers', [TrainingController::class, 'trainers'])->name('training.trainers');
+Route::get('/gallery', [GalleryEventController::class, 'gallery'])->name('gallery.index');
+Route::get('/events', [GalleryEventController::class, 'events'])->name('events.index');
+Route::get('/events/{slug}', [GalleryEventController::class, 'eventDetail'])->name('events.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,6 +62,30 @@ Route::middleware('auth')
 
         Route::middleware('can:trainees.manage')->group(function () {
             Route::resource('trainees', AdminTraineeController::class);
+        });
+
+        Route::middleware('can:gallery.manage')->group(function () {
+            Route::patch('/gallery-categories/{gallery_category}/toggle-status', [AdminGalleryCategoryController::class, 'toggleStatus'])
+                ->name('gallery-categories.toggle-status');
+            Route::resource('gallery-categories', AdminGalleryCategoryController::class)
+                ->except(['show'])
+                ->parameters(['gallery-categories' => 'gallery_category']);
+
+            Route::patch('/gallery/{gallery_item}/toggle-status', [AdminGalleryItemController::class, 'toggleStatus'])
+                ->name('gallery.toggle-status');
+            Route::patch('/gallery/{gallery_item}/toggle-featured', [AdminGalleryItemController::class, 'toggleFeatured'])
+                ->name('gallery.toggle-featured');
+            Route::resource('gallery', AdminGalleryItemController::class)
+                ->except(['show'])
+                ->parameters(['gallery' => 'gallery_item']);
+        });
+
+        Route::middleware('can:events.manage')->group(function () {
+            Route::patch('/events/{event}/toggle-status', [AdminEventController::class, 'toggleStatus'])
+                ->name('events.toggle-status');
+            Route::patch('/events/{event}/toggle-featured', [AdminEventController::class, 'toggleFeatured'])
+                ->name('events.toggle-featured');
+            Route::resource('events', AdminEventController::class)->except(['show']);
         });
 
         Route::middleware('can:website.manage')

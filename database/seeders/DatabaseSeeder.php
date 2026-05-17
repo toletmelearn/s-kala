@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             SuperAdminSeeder::class,
             WebsiteCmsSeeder::class,
             TrainingModuleSeeder::class,
+            GalleryEventsSeeder::class,
         ]);
     }
 }

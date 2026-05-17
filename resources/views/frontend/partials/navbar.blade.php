@@ -5,9 +5,10 @@
         ['label' => 'Vision', 'href' => url('/#vision')],
         ['label' => 'Training', 'href' => route('training.index')],
         ['label' => 'Trainers', 'href' => route('training.trainers')],
-        ['label' => 'Products', 'href' => url('/#products')],
+        ['label' => 'Events', 'href' => route('events.index')],
+        ['label' => 'Products', 'href' => route('gallery.index')],
         ['label' => 'Impact', 'href' => url('/#impact')],
-        ['label' => 'Gallery', 'href' => url('/#gallery')],
+        ['label' => 'Gallery', 'href' => route('gallery.index')],
         ['label' => 'Contact', 'href' => url('/#contact')],
     ];
 @endphp

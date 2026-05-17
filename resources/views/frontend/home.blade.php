@@ -213,26 +213,95 @@
         </div>
     </section>
 
-    <section id="products" class="bg-white py-16">
+    <section id="gallery" class="bg-white py-16">
         <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
             <div class="rounded-[2rem] bg-stone-950 p-8 text-white shadow-xl shadow-stone-300/40">
-                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">Made at S-kala</p>
-                <h2 class="mt-3 text-3xl font-bold">Product visibility for women-made work.</h2>
-                <p class="mt-5 text-base leading-8 text-stone-300">Future product showcase will display women-made products and help create visibility for handmade work shaped inside S-kala.</p>
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-amber-200">S-kala Gallery</p>
+                <h2 class="mt-3 text-3xl font-bold">Moments of transformation and training in motion.</h2>
+                <p class="mt-5 text-base leading-8 text-stone-300">A visual story of women empowerment, practical learning, and institutional progress at S-kala.</p>
+                <a href="{{ route('gallery.index') }}" class="mt-6 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-stone-900 hover:bg-stone-100">
+                    View Full Gallery
+                </a>
             </div>
-            <div id="gallery" class="grid gap-4 sm:grid-cols-3">
-                <div class="rounded-3xl border border-rose-100 bg-rose-50 p-6">
-                    <p class="text-sm font-semibold text-rose-900">Handmade</p>
-                    <p class="mt-16 text-xl font-bold text-stone-950">Craft</p>
+            <div class="grid gap-4 sm:grid-cols-3">
+                @forelse ($featuredGalleryItems->take(3) as $item)
+                    @php
+                        $galleryImageExists = $item->image && file_exists(public_path($item->image));
+                    @endphp
+                    <article class="overflow-hidden rounded-3xl border border-rose-100 bg-white">
+                        @if ($galleryImageExists)
+                            <img src="{{ asset($item->image) }}" alt="{{ $item->alt_text ?: $item->title }}" class="h-56 w-full object-cover">
+                        @else
+                            <div class="flex h-56 items-center justify-center bg-[#fbf7f0] p-6 text-center text-sm font-semibold text-stone-500">No image uploaded</div>
+                        @endif
+                        <div class="p-4">
+                            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">{{ $item->category?->name ?: ucfirst($item->type) }}</p>
+                            <p class="mt-2 text-sm font-semibold text-stone-900">{{ $item->title }}</p>
+                        </div>
+                    </article>
+                @empty
+                    <div class="rounded-3xl border border-rose-100 bg-rose-50 p-6">
+                        <p class="text-sm font-semibold text-rose-900">Training</p>
+                        <p class="mt-16 text-xl font-bold text-stone-950">Hands-on Learning</p>
+                    </div>
+                    <div class="rounded-3xl border border-amber-100 bg-amber-50 p-6">
+                        <p class="text-sm font-semibold text-amber-900">Transformation</p>
+                        <p class="mt-16 text-xl font-bold text-stone-950">New Beginnings</p>
+                    </div>
+                    <div class="rounded-3xl border border-stone-200 bg-[#fbf7f0] p-6">
+                        <p class="text-sm font-semibold text-stone-600">Community</p>
+                        <p class="mt-16 text-xl font-bold text-stone-950">Shared Progress</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-rose-700">Events</p>
+                    <h2 class="mt-2 text-3xl font-bold text-stone-950">Featured milestones from the S-kala journey.</h2>
                 </div>
-                <div class="rounded-3xl border border-amber-100 bg-amber-50 p-6">
-                    <p class="text-sm font-semibold text-amber-900">Skill</p>
-                    <p class="mt-16 text-xl font-bold text-stone-950">Embroidery</p>
-                </div>
-                <div class="rounded-3xl border border-stone-200 bg-[#fbf7f0] p-6">
-                    <p class="text-sm font-semibold text-stone-600">Enterprise</p>
-                    <p class="mt-16 text-xl font-bold text-stone-950">Visibility</p>
-                </div>
+                <a href="{{ route('events.index') }}" class="inline-flex rounded-full border border-rose-200 bg-white px-5 py-2.5 text-sm font-semibold text-rose-900 hover:bg-rose-50">
+                    View All Events
+                </a>
+            </div>
+
+            <div class="mt-8 grid gap-4 lg:grid-cols-3">
+                @forelse ($featuredEvents as $event)
+                    @php
+                        $eventImageExists = $event->cover_image && file_exists(public_path($event->cover_image));
+                    @endphp
+                    <article class="overflow-hidden rounded-[2rem] border border-rose-100 bg-white shadow-xl shadow-rose-100/40">
+                        @if ($eventImageExists)
+                            <img src="{{ asset($event->cover_image) }}" alt="{{ $event->title }}" class="h-44 w-full object-cover">
+                        @else
+                            <div class="flex h-44 items-center justify-center bg-[#fbf7f0] text-sm font-semibold text-stone-500">No cover image</div>
+                        @endif
+                        <div class="p-5">
+                            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">{{ ucfirst($event->status) }}</p>
+                            <h3 class="mt-2 text-lg font-semibold text-stone-950">{{ $event->title }}</h3>
+                            <p class="mt-2 text-sm text-stone-600">{{ $event->short_description ?: 'Event details available on the events page.' }}</p>
+                            <a href="{{ route('events.show', $event->slug) }}" class="mt-4 inline-flex rounded-full bg-rose-900 px-4 py-2 text-xs font-semibold text-white hover:bg-rose-800">
+                                View Event
+                            </a>
+                        </div>
+                    </article>
+                @empty
+                    @foreach ([
+                        ['title' => 'S-kala Inauguration', 'text' => 'A new beginning for women empowerment and skill development in Dhampur.'],
+                        ['title' => 'Training Orientation', 'text' => 'A focused preparation program to strengthen training quality.'],
+                        ['title' => 'Women Skill Workshop', 'text' => 'Hands-on learning for tailoring, embroidery, craft, and confidence-building.'],
+                    ] as $fallbackEvent)
+                        <article class="rounded-[2rem] border border-rose-100 bg-white p-6 shadow-xl shadow-rose-100/40">
+                            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">Completed</p>
+                            <h3 class="mt-2 text-lg font-semibold text-stone-950">{{ $fallbackEvent['title'] }}</h3>
+                            <p class="mt-2 text-sm text-stone-600">{{ $fallbackEvent['text'] }}</p>
+                        </article>
+                    @endforeach
+                @endforelse
             </div>
         </div>
     </section>
